@@ -13,20 +13,18 @@ public class UserServiceImpl implements UserService {
 
     private UserRep userRep;
 
-    public UserServiceImpl(UserRep userRepository) {
+    public UserServiceImpl(UserRep userRep) {
         this.userRep = userRep;
     }
 
     @Override
-    @Transactional(readOnly = true)
     public List<User> getAllUsers() {
         return userRep.findAll();
     }
 
     @Override
-    @Transactional(readOnly = true)
     public User getUserById(Long id) {
-        return userRep.findById(id).orElse(null); // или бросать исключение
+        return userRep.findById(id).orElse(null);
     }
 
     @Override
@@ -36,7 +34,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void updateUser(User user) {
-        userRep.save(user); // save работает и для create, и для update
+        userRep.save(user);
     }
 
     @Override
