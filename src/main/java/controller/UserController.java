@@ -20,7 +20,7 @@ public class UserController {
     public String listUsers(Model model) {
         model.addAttribute("users", userService.getAllUsers());
         model.addAttribute("newUser", new User());
-        return "users"; // возвращает templates/users.html
+        return "users";
     }
 
     @PostMapping
