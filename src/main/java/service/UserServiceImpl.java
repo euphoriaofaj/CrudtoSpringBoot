@@ -1,44 +1,39 @@
 package service;
 
 import model.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import repository.UserRep;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
-@Transactional
 public class UserServiceImpl implements UserService {
 
-    private UserRep userRep;
+    private final UserRep userRepository;
 
-    public UserServiceImpl(UserRep userRep) {
-        this.userRep = userRep;
+    public UserServiceImpl(UserRep userRepository) {
+        this.userRepository = userRepository;
     }
 
     @Override
     public List<User> getAllUsers() {
-        return userRep.findAll();
+        return userRepository.findAll();
     }
 
     @Override
-    public User getUserById(Long id) {
-        return userRep.findById(id).orElse(null);
+    public Optional<User> getUserById(Long id) {
+        return userRepository.findById(id);
     }
 
     @Override
-    public void saveUser(User user) {
-        userRep.save(user);
-    }
-
-    @Override
-    public void updateUser(User user) {
-        userRep.save(user);
+    public User saveUser(User user) {
+        return userRepository.save(user);
     }
 
     @Override
     public void deleteUser(Long id) {
-        userRep.deleteById(id);
+        userRepository.deleteById(id);
     }
 }

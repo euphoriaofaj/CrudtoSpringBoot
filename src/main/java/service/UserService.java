@@ -3,12 +3,12 @@ package service;
 import model.User;
 
 import java.util.List;
+import java.util.Optional;
 
 
 public interface UserService {
     List<User> getAllUsers();
-    User getUserById(Long id);
-    void saveUser(User user);
-    void updateUser(User user);
+    Optional<User> getUserById(Long id);
+    User saveUser(User user);
     void deleteUser(Long id);
 }
