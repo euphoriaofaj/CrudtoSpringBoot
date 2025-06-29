@@ -1,31 +1,35 @@
-package model;
+package com.example.CrudApp.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "users")
 public class User {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "Name is required")
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false)
+    @NotBlank(message = "Email is required")
+    @Column(nullable = false, unique = true)
     private String email;
 
-    private Integer age;
+
+    private String phone;
 
 
     public User() {}
 
-    public User(String name, String email, Integer age) {
+    public User(String name, String email, String phone) {
         this.name = name;
         this.email = email;
-        this.age = age;
+        this.phone = phone;
     }
+
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
@@ -36,6 +40,6 @@ public class User {
     public String getEmail() { return email; }
     public void setEmail(String email) { this.email = email; }
 
-    public Integer getAge() { return age; }
-    public void setAge(Integer age) { this.age = age; }
+    public String getPhone() { return phone; }
+    public void setPhone(String phone) { this.phone = phone; }
 }

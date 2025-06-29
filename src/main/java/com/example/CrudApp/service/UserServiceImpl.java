@@ -1,21 +1,20 @@
-package service;
+package com.example.CrudApp.service;
 
-import model.User;
+import com.example.CrudApp.model.User;
+import com.example.CrudApp.repository.UserRepository;
+import com.example.CrudApp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import repository.UserRep;
 
 import java.util.List;
 import java.util.Optional;
 
+
 @Service
 public class UserServiceImpl implements UserService {
 
-    private final UserRep userRepository;
-
-    public UserServiceImpl(UserRep userRepository) {
-        this.userRepository = userRepository;
-    }
+    @Autowired
+    private UserRepository userRepository;
 
     @Override
     public List<User> getAllUsers() {
@@ -33,7 +32,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User updateUser(Long id, User user) {
+        user.setId(id);
+        return userRepository.save(user);
+    }
+
+    @Override
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
+    }
+
+    @Override
+    public boolean existsByEmail(String email) {
+        return userRepository.existsByEmail(email);
     }
 }
